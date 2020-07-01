@@ -66,12 +66,6 @@
                     <button type="submit" class="btn btn-danger">Удалить</button>
  
 </form>
-<form action="{{ route('Archive', $client->id) }}" method="POST">
-       {{ csrf_field() }}
-       {{ method_field('PATCH') }}
-       <button type="submit" class="btn btn-warning" style="margin-left: 10px;">В архив</button>
-     </form>
-
 </div>
 </div>
 </div>

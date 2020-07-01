@@ -4,25 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App;
-use App\Client;
-use Carbon\Carbon;
-class ClientController extends Controller
+use App\Deal;
+class DealController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Client $client)
+    public function index(Deal $deal)
     {
-        // $clients = $client->all();
-        $clients = $client->where('archive', '=', '1')->get();
-        return view('client.index', compact('clients'));
+        $deals = $deal->all();
+        return view('deal.index', compact('deals'));
     }
-
-    
-    
-
 
     /**
      * Show the form for creating a new resource.
@@ -71,8 +65,6 @@ class ClientController extends Controller
         return view('client.show', compact('client'));
     }
 
-    
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -117,58 +109,5 @@ class ClientController extends Controller
     {
         $client->delete();//
         return redirect('/clients');
-    }
-
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function New(Client $client)
-    {
-        $date = Carbon::now();
-        echo $date;
-        $clients = $client->whereDate('date', $date)->get();
-        return view('client.new', compact('clients'));
-    }
-
-    
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function forgotten(Client $client)
-    {
-        $current = Carbon::now()->subDay();
-        $date = Carbon::now()->subWeeks(1);
-        echo $date;
-        $clients = $client->whereBetween('date', [$date, $current])->get();
-        return view('client.forgotten', compact('clients'));
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function archive(Client $client)
-    {
-        $client->archive = false;
-        $client->save();
-        return redirect('/clients');
-    }
-
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function archiveShow(Client $client)
-    {
-        $clients = $client->where('archive', '=', 'true')->get();
-        return view('client.archive', compact('clients'));
     }
 }

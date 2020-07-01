@@ -25,3 +25,11 @@ Route::get('/', function () {
 //   ->name('articles.destroy');
 
 Route::resource('clients', 'ClientController');
+
+Route::resource('deals', 'DealController');
+
+Route::get('/new', 'ClientController@New');
+Route::get('/forgotten', 'ClientController@forgotten');
+Route::get('/archive', 'ClientController@archiveShow');
+
+Route::patch('/clients/{client}', 'ClientController@archive')->name('Archive');
