@@ -16,48 +16,48 @@
                     {{ Form::submit('Sign In', ['class' => 'btn btn-primary']) }}
                 </div>
           {!! Form::close() !!} -->
-      <form action="{{ route('clients.update',$client->id) }}" method="POST">
+      <form action="{{ route('deals.update',$deal->id) }}" method="POST">
         @csrf
         @method('PUT')
   <div class="form-row">
     <div class="form-group col-md-4">
       <label for="inputEmail4">Наименование компании</label>
-      <input type="text" class="form-control" id="name" name="name"  value="{{ $client->name }}">
+      <input type="text" class="form-control" id="name" name="name"  value="{{ $deal->name }}">
     </div>
     <div class="form-group col-md-4">
       <label for="inputPassword4">Деятельность</label>
-      <input type="text" class="form-control" id="activity" name="activity" value="{{ $client->activity }}">
+      <input type="text" class="form-control" id="activity" name="activity" value="{{ $deal->activity }}">
     </div>
     <div class="form-group col-md-4">
       <label for="inputPassword4">Адрес сайта</label>
-      <input type="text" class="form-control" id="site" name="site" value="{{ $client->site }}">
+      <input type="text" class="form-control" id="site" name="site" value="{{ $deal->site }}">
     </div>
   </div>
  
   <div class="form-row">
   <div class="form-group col-md-6">
   <label for="inputAddress">Номер телефона</label>
-    <input type="text" class="form-control" id="phone1" name="phone1" value="{{ $client->phone1 }}">
+    <input type="text" class="form-control" id="phone1" name="phone1" value="{{ $deal->phone1 }}">
   </div>
   <div class="form-group col-md-6">
   <label for="inputAddress">Дополнительный номер телефона</label>
-    <input type="text" class="form-control" id="phone2"  name="phone2" value="{{ $client->phone2 }}">
+    <input type="text" class="form-control" id="phone2"  name="phone2" value="{{ $deal->phone2 }}">
   </div>
   <div class="form-group col-md-6">
   <label for="inputAddress">Email</label>
-    <input type="text" class="form-control" id="email1"  name="email1" value="{{ $client->email1 }}">
+    <input type="text" class="form-control" id="email1"  name="email1" value="{{ $deal->email1 }}">
   </div>
   <div class="form-group col-md-6">
   <label for="inputAddress">Дополнительный Email</label>
-    <input type="text" class="form-control" id="email2" name="email2" value="{{ $client->email2 }}">
+    <input type="text" class="form-control" id="email2" name="email2" value="{{ $deal->email2 }}">
   </div> </div>
   <div class="form-group">
     <label for="inputAddress">Адрес</label>
-    <input type="text" class="form-control" id="address" name="address" value="{{ $client->address }}" >
+    <input type="text" class="form-control" id="address" name="address" value="{{ $deal->address }}" >
   </div>
   <div class="form-group">
     <label for="inputAddress">Комментарий</label>
-    <textarea type="text" class="form-control" id="comment"  name="comment" value="">{{ $client->comment }}</textarea>
+    <textarea type="text" class="form-control" id="comment"  name="comment" value="">{{ $deal->comment }}</textarea>
   </div>
  
 

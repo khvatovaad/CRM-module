@@ -13,43 +13,37 @@
       
   <div class="form-row">
     <div class="form-group col-md-4">
-      <label for="inputEmail4">Наименование компании</label>
-      <input type="text" class="form-control" id="name2" value="{{$client->name}}" disabled>
+      <label for="name">Наименование компании</label>
+      <input type="text" class="form-control" id="name" value="{{$deal->name}}" disabled>
     </div>
     <div class="form-group col-md-4">
-      <label for="inputPassword4">Деятельность</label>
-      <input type="text" class="form-control" id="activity" value="{{$client->activity}}" disabled>
+      <label for="client_id">Клиент</label>
+      <input type="text" class="form-control" id="activity" value="{{$deal->client_id}}" disabled>
     </div>
     <div class="form-group col-md-4">
-      <label for="inputPassword4">Сайт компании</label>
-      <input type="text" class="form-control" id="site" value="{{$client->site}}" disabled>
+      <label for="inputPassword4">Сумма сделки</label>
+      <input type="text" class="form-control" id="summ" value="{{$deal->summ}}" disabled>
     </div>
   </div>
   <!-- // Контакты -->
   <div class="form-row">
   <div class="form-group col-md-6">
-  <label for="inputAddress">Номер телефона</label>
-    <input type="text" class="form-control" id="phone1"  value="{{$client->phone1}}" disabled>
+  <label for="time_start">Дата начала сделки</label>
+    <input type="text" class="form-control" id="time_start"  value="{{$deal->time_start}}" disabled>
   </div>
   <div class="form-group col-md-6">
-  <label for="inputAddress">Дополнительный номер телефона</label>
-    <input type="text" class="form-control" id="phone2"  value="{{$client->phone2}}" disabled>
+  <label for="time_end">Дата окончания сделки</label>
+    <input type="text" class="form-control" id="time_end"  value="{{$deal->time_end}}" disabled>
   </div>
   <div class="form-group col-md-6">
-  <label for="inputAddress">Email</label>
-    <input type="text" class="form-control" id="email1"  value="{{$client->email1}}" disabled>
+  <label for="status">Статус сделки</label>
+    <input type="text" class="form-control" id="status"  value="{{$deal->status}}" disabled>
   </div>
+  
   <div class="form-group col-md-6">
-  <label for="inputAddress">Дополнительный Email</label>
-    <input type="text" class="form-control" id="email2"  value="{{$client->email2}}" disabled>
-  </div> </div>
-  <div class="form-group">
-    <label for="inputAddress">Адрес</label>
-    <input type="text" class="form-control" id="inputAddress" value="{{$client->address}}" disabled>
+    <label for="type">Тип сделки</label>
+    <input type="text" class="form-control" id="type" value="{{$deal->type}}" disabled>
   </div>
-  <div class="form-group">
-    <label for="inputAddress">Комментарий</label>
-    <textarea type="text" class="form-control" id="inputAddress" disabled>{{$client->comment}}</textarea>
   </div>
  
 
@@ -58,14 +52,24 @@
   </form>
   <div class="container">
   <div class="row">
-  <a href="{{ route('clients.edit',$client->id) }}" class="btn btn-primary mr-2">Редактировать</a>
-  <form action="{{ route('clients.destroy',$client->id) }}" method="POST">
+  <a href="{{ route('deals.edit',$deal->id) }}" class="btn btn-primary mr-2">Редактировать</a>
+  <form action="{{ route('deals.destroy',$deal->id) }}" method="POST">
 
 @csrf
 @method('DELETE')
                     <button type="submit" class="btn btn-danger">Удалить</button>
+
+    
  
 </form>
+
+<form action="{{ route('Favorite', $deal->id) }}" method="POST">
+       {{ csrf_field() }}
+       {{ method_field('PATCH') }}
+       <button type="submit" class="btn btn-warning" style="margin-left: 10px;">Избранное</button>
+     </form>
+
+
 </div>
 </div>
 </div>

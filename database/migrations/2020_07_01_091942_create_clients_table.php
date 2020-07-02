@@ -24,8 +24,8 @@ class CreateClientsTable extends Migration
             $table->string('site')->nullable(); // Адрес текущего сайта, если есть
             $table->text('activity')->nullable(); // Род деятельности
             $table->text('comment')->nullable(); // Комментарий от РП
-            $table->boolean('archive')->default(true);
-            $table->date('date')->default(Carbon\Carbon::now());
+            $table->boolean('archive')->default(true); // не вь архиве?
+            $table->date('date')->default(Carbon\Carbon::now()); // Дата добавления записи
 
         });
     }

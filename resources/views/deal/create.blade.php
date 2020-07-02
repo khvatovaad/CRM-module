@@ -1,3 +1,6 @@
+
+
+
 @extends('layout')
 
 @section('content')
@@ -6,63 +9,74 @@
             
             
           </div>
-          <!-- {!! Form::open() !!}
-   
-          <div class="form-group">
-                    {{ Form::label('name', 'Название компании:') }}
-                    {{ Form::text('name', null, ['class' => 'form-control', 'required' => 'required']) }}
-                </div>
-                <div class="form-group">
-                    {{ Form::submit('Sign In', ['class' => 'btn btn-primary']) }}
-                </div>
-          {!! Form::close() !!} -->
-<form method="POST" action="/clients">
+
+
+        
+       
+         
+<form method="POST" action="/deals">
 @csrf
   <div class="form-row">
     <div class="form-group col-md-4">
-      <label for="inputEmail4">Наименование компании</label>
+      <label for="name">Наименование сделки</label>
       <input type="text" class="form-control" id="name" name="name">
     </div>
     <div class="form-group col-md-4">
-      <label for="inputPassword4">Деятельность</label>
-      <input type="text" class="form-control" id="activity" name="activity" value="">
+      
+      <label for="client_id">Клиент</label>
+    
+      <select class="form-control" name="client_id"> <!--Supplement an id here instead of using 'name'-->
+      @foreach ($clients as $client)
+      <option value="{{$client->id}}">{{$client->name}}</option> 
+     
+    @endforeach               
+    </select>
+      
     </div>
     <div class="form-group col-md-4">
-      <label for="inputPassword4">Адрес сайта</label>
-      <input type="text" class="form-control" id="site" name="site" value="">
+      <label for="summ">Сумма сделки</label>
+      <input type="number" class="form-control" id="summ" name="summ" value="">
     </div>
   </div>
  
   <div class="form-row">
   <div class="form-group col-md-6">
-  <label for="inputAddress">Номер телефона</label>
-    <input type="text" class="form-control" id="phone1" name="phone1" value="">
+  <label for="time_start">Дата начала сделки</label>
+    <input type="date" class="form-control" id="time_start" name="time_start" value="">
   </div>
   <div class="form-group col-md-6">
-  <label for="inputAddress">Дополнительный номер телефона</label>
-    <input type="text" class="form-control" id="phone2"  name="phone2" value="">
+  <label for="time_end">Дата окончания сделки</label>
+    <input type="date" class="form-control" id="time_end"  name="time_end" value="">
   </div>
   <div class="form-group col-md-6">
-  <label for="inputAddress">Email</label>
-    <input type="text" class="form-control" id="email1"  name="email1" value="">
+  <label for="status">Статус сделки</label>
+  <select class="form-control" name="status"> <!--Supplement an id here instead of using 'name'-->
+      @foreach ($statuses ?? '' as $status)
+      <option value="{{$status}}">{{$status}}</option> 
+     
+    @endforeach               
+    </select>
   </div>
   <div class="form-group col-md-6">
-  <label for="inputAddress">Дополнительный Email</label>
-    <input type="text" class="form-control" id="email2" name="email2" value="">
+  <label for="type">Тип сделки</label>
+      <!-- <input type="text" class="form-control" id="type" name="type" value=""> -->
+      
+      <select class="form-control" name="type"> <!--Supplement an id here instead of using 'name'-->
+      @foreach ($types ?? '' as $type)
+      <option value="{{$type}}">{{$type}}</option> 
+     
+    @endforeach               
+    </select>
   </div> </div>
-  <div class="form-group">
-    <label for="inputAddress">Адрес</label>
-    <input type="text" class="form-control" id="address" name="address" value="" >
-  </div>
-  <div class="form-group">
-    <label for="inputAddress">Комментарий</label>
-    <textarea type="text" class="form-control" id="comment"  name="comment" value=""></textarea>
-  </div>
+  
  
 
   <button type="submit" class="btn btn-primary">Добавить</button>
   
 </form>
+
+
+
 </div>
 
 </main>

@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App;
 use App\Deal;
+use App\Client;
+use Carbon\Carbon;
+use DB;
+
 class DealController extends Controller
 {
     /**
@@ -23,9 +27,13 @@ class DealController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Client $client)
     {
-        return view('client.create');
+        // $clients = DB::table('clients')->select('id', 'name')->get();
+        $clients = $client->all();
+        $types = ['сайт-визитка', 'онлайн-магазин'];
+        $statuses = ['первичный запрос','отправка брифа', 'получение брифа', 'переговоры', 'готовится договор'];
+        return view('deal.create', compact('clients', 'types', 'statuses'));
     }
 
     /**
@@ -34,22 +42,19 @@ class DealController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Client $client)
+    public function store(Request $request, Deal $deal)
     {
-        
-        $client->name = $request->name;
-        $client->address = $request->address;
-        $client->phone1 = $request->phone1;
-        $client->phone2 = $request->phone2;
-        $client->email1 = $request->email1;
-        $client->email2 = $request->email2;
-        $client->site = $request->site;
-        $client->activity = $request->activity;
-        $client->comment = $request->comment;
-        $client->save(); 
+        $deal->name = $request->name;
+        $deal->type = $request->type;
+        $deal->summ = $request->summ;
+        $deal->time_start = $request->time_start;
+        $deal->time_end = $request->time_end;
+        $deal->status = $request->status;
+        $deal->client_id = $request->client_id;
+
+        $deal->save(); 
         // Client::create(request(['name']));
-        return redirect('/clients');
-       
+        return redirect('/deals');
     }
 
     /**
@@ -60,9 +65,8 @@ class DealController extends Controller
      */
     public function show($id)
     {
-
-        $client = App\Client::find($id);
-        return view('client.show', compact('client'));
+        $deal = App\Deal::find($id);
+        return view('deal.show', compact('deal'));
     }
 
     /**
@@ -71,10 +75,14 @@ class DealController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Client $client)
+    public function edit(Client $client, Deal $deal)
     {
-        return view('client.edit',compact('client'));
+        $clients = $client->all();
+        $types = ['сайт-визитка', 'онлайн-магазин'];
+        $statuses = ['первичный запрос','отправка брифа', 'получение брифа', 'переговоры', 'готовится договор'];
+        return view('deal.edit', compact('deal','clients', 'types', 'statuses'));
     }
+    
 
     /**
      * Update the specified resource in storage.
@@ -83,20 +91,19 @@ class DealController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Client $client)
+    public function update(Request $request, Deal $deal)
     {
-        $client->name = $request->name;
-        $client->address = $request->address;
-        $client->phone1 = $request->phone1;
-        $client->phone2 = $request->phone2;
-        $client->email1 = $request->email1;
-        $client->email2 = $request->email2;
-        $client->site = $request->site;
-        $client->activity = $request->activity;
-        $client->comment = $request->comment;
-        $client->save(); 
+        $deal->name = $request->name;
+        $deal->type = $request->type;
+        $deal->summ = $request->summ;
+        $deal->time_start = $request->time_start;
+        $deal->time_end = $request->time_end;
+        $deal->status = $request->status;
+        $deal->client_id = $request->client_id;
+
+        $deal->save(); 
         // Client::create(request(['name']));
-        return redirect('/clients');
+        return redirect('/deals');
     }
 
     /**
@@ -105,9 +112,15 @@ class DealController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Client $client)
+    public function destroy(Deal $deal)
     {
-        $client->delete();//
-        return redirect('/clients');
+        $deal->delete();//
+        return redirect('/deals');
+    }
+
+    public function Favorite(Deal $deal)
+    {
+        $deals = $deal->where('favorite', '=', 'true')->get();
+        return view('deal.favorite', compact('deals'));
     }
 }

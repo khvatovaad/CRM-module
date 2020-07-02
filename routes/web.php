@@ -31,5 +31,7 @@ Route::resource('deals', 'DealController');
 Route::get('/new', 'ClientController@New');
 Route::get('/forgotten', 'ClientController@forgotten');
 Route::get('/archive', 'ClientController@archiveShow');
+Route::get('/favorite', 'DealController@Favorite');
 
 Route::patch('/clients/{client}', 'ClientController@archive')->name('Archive');
+Route::patch('/deals/{deal}', 'DealController@Favorite')->name('Favorite');
